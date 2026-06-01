@@ -1,0 +1,192 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+
+const iconPath = (name: string) => {
+  const paths: Record<string, string> = {
+    filetext: 'M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z',
+    users: 'M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z',
+    shield: 'M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.063 2.522-.187 3.757-.103 1.034-.684 1.957-1.587 2.55a36.66 36.66 0 0 1-7.226 3.487 2.205 2.205 0 0 1-1.974 0A36.626 36.626 0 0 1 2.774 18.31c-.903-.594-1.484-1.517-1.587-2.55A41.04 41.04 0 0 1 1 12c0-1.268.063-2.522.187-3.757.103-1.034.684-1.957 1.587-2.55a36.66 36.66 0 0 1 7.226-3.487 2.205 2.205 0 0 1 1.974 0c2.357.949 4.868 2.105 7.226 3.487.903.593 1.484 1.516 1.587 2.55.124 1.235.187 2.49.187 3.757Z',
+    calendar: 'M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5',
+    phone: 'M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z',
+  };
+  return paths[name] ?? '';
+};
+---
+
+<LegalLayout
+  title="Términos y Condiciones - Las Muñecas de Ramón"
+  description="Términos y condiciones de uso del servicio de Las Muñecas de Ramón, nightclub exclusivo en Linares."
+  eyebrow="Documento Legal"
+  heading="Términos y Condiciones"
+  contentId="terms-content"
+>
+  <section>
+    <h2 class="mb-4 flex items-center gap-2 text-2xl font-bold text-amber-400">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d={iconPath("filetext")} />
+      </svg>
+      1. Introducción
+    </h2>
+    <p class="mb-3 leading-relaxed text-slate-300">
+      Bienvenido a <strong class="text-amber-400">Las Muñecas de Ramón</strong>, el club nocturno más exclusivo de Linares. Estos términos y condiciones rigen el uso de nuestros servicios y la visita a nuestro establecimiento.
+    </p>
+    <p class="leading-relaxed text-slate-300">
+      Al acceder a nuestro establecimiento o utilizar nuestros servicios, usted acepta cumplir con estos términos y condiciones. Si no está de acuerdo con alguna parte de estos términos, no debe utilizar nuestros servicios.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="mb-4 flex items-center gap-2 text-2xl font-bold text-amber-400">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d={iconPath("users")} />
+      </svg>
+      2. Servicios Ofrecidos
+    </h2>
+    <div class="space-y-3">
+      <div class="rounded-lg border border-amber-500/20 bg-gray-800/50 p-4">
+        <h3 class="mb-2 text-lg font-semibold text-amber-300">Entretenimiento Nocturno</h3>
+        <p class="text-sm text-slate-300">
+          Ofrecemos servicios de entretenimiento nocturno exclusivo para adultos mayores de 18 años.
+        </p>
+      </div>
+      <div class="rounded-lg border border-amber-500/20 bg-gray-800/50 p-4">
+        <h3 class="mb-2 text-lg font-semibold text-amber-300">Servicios VIP</h3>
+        <p class="text-sm text-slate-300">
+          Salas privadas, servicio de bar premium y atención personalizada para clientes VIP.
+        </p>
+      </div>
+      <div class="rounded-lg border border-amber-500/20 bg-gray-800/50 p-4">
+        <h3 class="mb-2 text-lg font-semibold text-amber-300">Eventos Especiales</h3>
+        <p class="text-sm text-slate-300">
+          Organización de eventos privados y celebraciones especiales bajo reserva previa.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-4 flex items-center gap-2 text-2xl font-bold text-amber-400">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d={iconPath("shield")} />
+      </svg>
+      3. Requisitos de Acceso
+    </h2>
+    <ul class="space-y-2 text-slate-300">
+      <li class="flex items-start gap-2">
+        <div class="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500"></div>
+        <span>Ser mayor de 18 años y presentar identificación válida</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <div class="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500"></div>
+        <span>Cumplir con el código de vestimenta establecido</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <div class="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500"></div>
+        <span>Respetar las normas de comportamiento y convivencia</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <div class="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500"></div>
+        <span>No ingresar bajo efectos del alcohol o sustancias prohibidas</span>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="mb-4 flex items-center gap-2 text-2xl font-bold text-amber-400">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d={iconPath("calendar")} />
+      </svg>
+      4. Horarios y Reservas
+    </h2>
+    <div class="grid gap-4 md:grid-cols-2">
+      <div class="rounded-lg border border-amber-500/20 bg-gray-800/50 p-4">
+        <h3 class="mb-2 text-lg font-semibold text-amber-300">Horarios de Atención</h3>
+        <p class="mb-1 text-sm text-slate-300">Martes a Domingo</p>
+        <p class="text-sm text-slate-300">20:00 - 06:00 hrs</p>
+      </div>
+      <div class="rounded-lg border border-amber-500/20 bg-gray-800/50 p-4">
+        <h3 class="mb-2 text-lg font-semibold text-amber-300">Reservas</h3>
+        <p class="mb-1 text-sm text-slate-300">Salas VIP y eventos especiales</p>
+        <p class="text-sm text-slate-300">Contacto: +56 9 87904824</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-4 text-2xl font-bold text-amber-400">5. Políticas de Pago</h2>
+    <div class="space-y-3">
+      <p class="text-slate-300">
+        Los precios de nuestros servicios están sujetos a cambios sin previo aviso. Se aceptan pagos en efectivo y transferencias bancarias.
+      </p>
+      <p class="text-slate-300">
+        Las reservas requieren confirmación y pueden estar sujetas a depósito previo.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-4 text-2xl font-bold text-amber-400">6. Responsabilidades del Cliente</h2>
+    <ul class="space-y-2 text-slate-300">
+      <li class="flex items-start gap-2">
+        <div class="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500"></div>
+        <span>Respetar a otros clientes y personal del establecimiento</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <div class="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500"></div>
+        <span>Cumplir con las normas de seguridad establecidas</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <div class="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500"></div>
+        <span>No realizar actividades ilegales en el establecimiento</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <div class="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500"></div>
+        <span>Responsabilizarse por sus pertenencias personales</span>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="mb-4 text-2xl font-bold text-amber-400">7. Limitación de Responsabilidad</h2>
+    <p class="mb-3 leading-relaxed text-slate-300">
+      Las Muñecas de Ramón no se hace responsable por pérdidas, daños o lesiones que puedan ocurrir en el establecimiento, excepto en casos de negligencia comprobada de nuestra parte.
+    </p>
+    <p class="leading-relaxed text-slate-300">
+      Los clientes ingresan al establecimiento bajo su propio riesgo y responsabilidad.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="mb-4 text-2xl font-bold text-amber-400">8. Modificaciones</h2>
+    <p class="leading-relaxed text-slate-300">
+      Nos reservamos el derecho de modificar estos términos y condiciones en cualquier momento. Las modificaciones entrarán en vigor inmediatamente después de su publicación en nuestro establecimiento o sitio web.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="mb-4 flex items-center gap-2 text-2xl font-bold text-amber-400">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d={iconPath("phone")} />
+      </svg>
+      9. Contacto
+    </h2>
+    <div class="rounded-lg border border-amber-500/20 bg-gray-800/50 p-4">
+      <div class="grid gap-4 md:grid-cols-2">
+        <div>
+          <h3 class="mb-2 text-lg font-semibold text-amber-300">Información de Contacto</h3>
+          <div class="space-y-1 text-sm text-slate-300">
+            <p><strong>Teléfono:</strong> +56 9 87904824</p>
+            <p><strong>Ubicación:</strong> Linares, Chile</p>
+            <p><strong>Horario:</strong> Martes a Domingo 20:00-06:00</p>
+          </div>
+        </div>
+        <div>
+          <h3 class="mb-2 text-lg font-semibold text-amber-300">Para Consultas</h3>
+          <p class="text-sm text-slate-300">
+            Para cualquier consulta sobre estos términos y condiciones, puede contactarnos a través de WhatsApp o visitarnos en nuestro establecimiento.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</LegalLayout>

@@ -1,0 +1,31 @@
+{
+  "name": "lasmunecasderamon-web",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sitio público de Las Muñecas de Ramón. Astro project split from the admin panel.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "pnpm build:og && astro build",
+    "build:og": "node scripts/build-og-image.mjs",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^13.6.0",
+    "@astrojs/mdx": "^6.0.1",
+    "@astrojs/sitemap": "3.7.3",
+    "@astrojs/tailwind": "^6.0.2",
+    "astro": "^6.4.2",
+    "tailwindcss": "^3.4.18"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.9",
+    "sharp": "^0.34.5",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.95.0"
+  },
+  "packageManager": "pnpm@10.30.3"
+}

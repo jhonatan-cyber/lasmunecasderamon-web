@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navigation from "../components/landing/Navigation.astro";
+import Footer from "../components/landing/Footer.astro";
+import SnowEffect from "../components/landing/SnowEffect.astro";
+import WhatsAppWidget from "../components/landing/WhatsAppWidget.astro";
+import HeroSection from "../components/landing/HeroSection.astro";
+import AboutSection from "../components/landing/AboutSection.astro";
+import EventsSection from "../components/landing/EventsSection.astro";
+import ServicesSection from "../components/landing/ServicesSection.astro";
+import TestimonialsSection from "../components/landing/TestimonialsSection.astro";
+import LocationSection from "../components/landing/LocationSection.astro";
+import CareersSection from "../components/landing/CareersSection.astro";
+import ReviewsSection from "../components/landing/ReviewsSection.astro";
+---
+
+<BaseLayout
+  title="Las Muñecas de Ramón | Nightclub exclusivo en Linares"
+  canonical="/landing"
+>
+  <Navigation slot="nav" />
+  <Footer slot="footer" />
+  <Fragment slot="floating">
+    <SnowEffect />
+    <WhatsAppWidget />
+  </Fragment>
+
+  <div class="landing-shell relative min-h-screen overflow-x-hidden bg-black text-white">
+    <a
+      href="#home"
+      class="landing-skip-link sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-black"
+    >
+      Saltar al contenido principal
+    </a>
+
+    <HeroSection />
+    <AboutSection />
+    <EventsSection />
+    <ServicesSection />
+    <TestimonialsSection />
+    <LocationSection />
+    <CareersSection />
+    <ReviewsSection />
+  </div>
+</BaseLayout>

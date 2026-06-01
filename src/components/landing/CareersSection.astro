@@ -1,0 +1,209 @@
+---
+/**
+ * CareersSection — open positions cards that open a WhatsApp chat with the
+ * position pre-filled. Mirrors CareersSection.tsx but uses a simpler UX
+ * (each card opens WhatsApp with the position context) — no modal needed.
+ */
+import { SITE } from "../../lib/seo";
+
+const positions = [
+  {
+    title: "Anfitriona",
+    icon: "sparkles",
+    schedule: "Martes a Domingo 22:00-05:00",
+    requirements: [
+      "Excelente presentación personal",
+      "Habilidades de comunicación",
+      "Experiencia en atención al cliente",
+      "Disponibilidad horaria nocturna",
+    ],
+    benefits: ["Propinas", "Comisiones", "Imagen"],
+  },
+  {
+    title: "Bailarina",
+    icon: "heart",
+    schedule: "Martes a Domingo 22:00-05:00",
+    requirements: [
+      "Experiencia en baile y performance",
+      "Buena condición física",
+      "Actitud profesional",
+      "Disponibilidad inmediata",
+    ],
+    benefits: ["Propinas", "Comisiones", "Ambiente VIP"],
+  },
+  {
+    title: "Garzones",
+    icon: "wine",
+    schedule: "Martes a Domingo 22:00-05:00",
+    requirements: [
+      "Experiencia en servicio de bar/restaurant",
+      "Conocimiento de bebidas y cócteles",
+      "Agilidad y buena memoria",
+      "Trabajo en equipo",
+    ],
+    benefits: ["Propinas", "Uniforme", "Cena"],
+  },
+  {
+    title: "Seguridad",
+    icon: "shield",
+    schedule: "Martes a Domingo 22:00-05:00",
+    requirements: [
+      "Curso OS-10 vigente",
+      "Experiencia en seguridad nocturna",
+      "Excelente condición física",
+      "Manejo de conflictos",
+    ],
+    benefits: ["Seguro", "Entrenamiento", "Equipamiento"],
+  },
+  {
+    title: "Personal Administrativo",
+    icon: "briefcase",
+    schedule: "Martes a Domingo 22:00-05:00",
+    requirements: [
+      "Experiencia administrativa",
+      "Manejo de Office y sistemas",
+      "Organización y proactividad",
+      "Disponibilidad horaria nocturna",
+    ],
+    benefits: ["Estabilidad", "Contrato", "Oficina"],
+  },
+];
+
+const iconPath = (name: string) => {
+  const paths: Record<string, string> = {
+    sparkles: 'M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z',
+    heart: 'M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z',
+    wine: 'M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 0-6.23.693L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5',
+    shield: 'M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.063 2.522-.187 3.757-.103 1.034-.684 1.957-1.587 2.55a36.66 36.66 0 0 1-7.226 3.487 2.205 2.205 0 0 1-1.974 0A36.626 36.626 0 0 1 2.774 18.31c-.903-.594-1.484-1.517-1.587-2.55A41.04 41.04 0 0 1 1 12c0-1.268.063-2.522.187-3.757.103-1.034.684-1.957 1.587-2.55a36.66 36.66 0 0 1 7.226-3.487 2.205 2.205 0 0 1 1.974 0c2.357.949 4.868 2.105 7.226 3.487.903.593 1.484 1.516 1.587 2.55.124 1.235.187 2.49.187 3.757Z',
+    briefcase: 'M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z',
+    clock: 'M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
+    star: 'M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z',
+    award: 'M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-4.5A3.375 3.375 0 0 0 19.125 11.25H4.875A3.375 3.375 0 0 0 1.5 14.25V18.75m18 0h-18M8.25 11.25h7.5',
+    send: 'M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5',
+  };
+  return paths[name] ?? '';
+};
+---
+
+<section id="careers" class="relative overflow-hidden py-16 sm:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-14 text-center sm:mb-20">
+      <div class="eyebrow-badge mb-4">Únete a Nuestro Equipo</div>
+      <h2 class="mb-6 text-3xl font-bold sm:text-5xl md:text-6xl">
+        <span class="gradient-text-gold">Trabaja con Nosotros</span>
+      </h2>
+      <p class="mx-auto max-w-3xl text-base font-light text-silver-300 sm:text-xl">
+        Buscamos profesionales apasionados para formar parte del mejor nightclub de Linares
+      </p>
+    </div>
+
+    <div class="mb-12 flex flex-wrap justify-center gap-5 sm:mb-16 sm:gap-8">
+      {
+        positions.map((pos) => {
+          const waText = encodeURIComponent(`Hola, me interesa postular al cargo de ${pos.title} en Las Muñecas de Ramón`);
+          const waUrl = `https://wa.me/${SITE.phoneRaw}?text=${waText}`;
+          return (
+            <a
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group relative block w-full cursor-pointer overflow-hidden rounded-3xl border border-white/10 bg-black/40 p-6 backdrop-blur-md transition-all duration-500 hover:scale-105 hover:border-gold-500/30 md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] sm:p-8"
+            >
+              <div class="relative z-10">
+                <div class="mb-6 flex items-center gap-4">
+                  <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-gold-400 to-gold-600 shadow-lg shadow-black/50 transition-transform duration-300 group-hover:scale-110">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d={iconPath(pos.icon)} />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="mb-1 text-xl font-bold tracking-wide text-silver-100 sm:text-2xl">{pos.title}</h3>
+                    <div class="flex items-center gap-2 text-sm font-light text-silver-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d={iconPath("clock")} />
+                      </svg>
+                      <span>{pos.schedule}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-6">
+                  <h4 class="mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-gold-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d={iconPath("star")} />
+                    </svg>
+                    Requisitos
+                  </h4>
+                  <ul class="space-y-2">
+                    {pos.requirements.map((req) => (
+                      <li class="flex items-start text-sm font-light text-silver-400">
+                        <div class="mt-2 mr-3 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gold-500" />
+                        <span>{req}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div class="mb-6">
+                  <h4 class="mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-silver-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d={iconPath("award")} />
+                    </svg>
+                    Beneficios
+                  </h4>
+                  <div class="flex flex-wrap gap-2">
+                    {pos.benefits.map((b) => (
+                      <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-silver-300">
+                        {b}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div class="border-t border-white/10 pt-6">
+                  <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-gold-500 transition-all group-hover:gap-3">
+                      Postular
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 -rotate-90 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                      </svg>
+                    </span>
+                    <div class="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-gold-500 to-gold-600 shadow-lg shadow-gold-500/20 transition-transform group-hover:scale-110">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d={iconPath("send")} />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          );
+        })
+      }
+    </div>
+
+    <div class="mx-auto max-w-4xl rounded-3xl border border-gold-500/30 bg-black/60 p-6 text-center shadow-2xl backdrop-blur-md sm:p-10 lg:p-12">
+      <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-6 h-16 w-16 text-gold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d={iconPath("briefcase")} />
+      </svg>
+      <h3 class="mb-4 text-2xl font-bold tracking-wide text-white sm:text-3xl md:text-4xl">
+        ¿Te interesa trabajar con nosotros?
+      </h3>
+      <p class="mx-auto mb-8 max-w-2xl text-base font-light text-silver-300 sm:text-lg">
+        Envía tu CV y carta de presentación a nuestro WhatsApp. Nos pondremos en contacto contigo a la brevedad.
+      </p>
+      <a
+        href={`https://wa.me/${SITE.phoneRaw}?text=${encodeURIComponent("Hola, me interesa trabajar en Las Muñecas de Ramón")}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <button class="btn-gold inline-flex w-full items-center justify-center gap-2 px-8 py-4 text-base shadow-xl shadow-gold-600/40 sm:w-auto sm:px-10 sm:text-lg min-h-11">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d={iconPath("send")} />
+          </svg>
+          Enviar CV por WhatsApp
+        </button>
+      </a>
+    </div>
+  </div>
+</section>

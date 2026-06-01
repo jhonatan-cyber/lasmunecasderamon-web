@@ -1,0 +1,105 @@
+---
+import "../styles/global.css";
+import { SITE, buildTitle, absoluteUrl, nightClubJsonLd, type PageMeta } from "../lib/seo";
+
+interface Props extends PageMeta {}
+
+const {
+  title,
+  description = SITE.description,
+  image = SITE.ogImage,
+  type = "website",
+  noindex = false,
+  canonical,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  ...rest
+} = Astro.props;
+
+const fullTitle = buildTitle(title);
+const canonicalUrl = canonical ? absoluteUrl(canonical) : absoluteUrl(Astro.url.pathname);
+const ogImage = absoluteUrl(image);
+const ogImageAlt = SITE.ogImageAlt;
+const jsonLd = type === "website" && !noindex ? nightClubJsonLd() : null;
+---
+
+<!doctype html>
+<html lang="es-CL">
+  <head>
+    <script is:inline>
+      (() => {
+        const storedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const theme = storedTheme === "light" || storedTheme === "dark" ? storedTheme : (prefersDark ? "dark" : "light");
+        const applyTheme = (nextTheme) => {
+          document.documentElement.dataset.theme = nextTheme;
+          document.documentElement.style.colorScheme = nextTheme;
+          const meta = document.getElementById("theme-color-meta");
+          if (meta) {
+            meta.setAttribute("content", nextTheme === "dark" ? "#050505" : "#f8f7f2");
+          }
+        };
+
+        window.setSiteTheme = applyTheme;
+        applyTheme(theme);
+      })();
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#050505" id="theme-color-meta" />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonicalUrl} />
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta property="og:image:type" content="image/png" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
+
+    {jsonLd && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(jsonLd).replace(/</g, "\\u003c")}
+      />
+    )}
+  </head>
+  <body class="bg-black text-silver-300">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-black"
+    >
+      Saltar al contenido principal
+    </a>
+
+    <slot name="nav" />
+
+    <main id="main" class="relative z-10">
+      <slot />
+    </main>
+
+    <slot name="footer" />
+    <slot name="floating" />
+  </body>
+</html>

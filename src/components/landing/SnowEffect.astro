@@ -1,0 +1,59 @@
+---
+/**
+ * SnowEffect — ambient gold/silver particles drifting down.
+ * Mirrors SnowEffect.tsx. Inline script creates the DOM nodes after load.
+ * Respects prefers-reduced-motion and viewport size.
+ */
+---
+
+<div id="snow-effect" aria-hidden="true" class="pointer-events-none fixed inset-0 z-0 overflow-hidden"></div>
+
+<script>
+  (function () {
+    if (document.getElementById("snow-effect")?.dataset.init === "1") return;
+    const root = document.getElementById("snow-effect");
+    if (!root) return;
+    root.dataset.init = "1";
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reduced.matches) return;
+
+    const mobile = window.matchMedia("(max-width: 640px)");
+    let count = mobile.matches ? 18 : 50;
+
+    const build = () => {
+      root.innerHTML = "";
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement("div");
+        const isGold = i % 2 === 0;
+        const left = (i * 5.3) % 100;
+        const dur = 8 + (i % 6) + ((i * 11) % 20) / 10;
+        const delay = ((i * 7) % 60) / 10;
+        const size = 2 + ((i * 3) % 15) / 10;
+        const opacity = 0.2 + ((i * 4) % 50) / 100;
+
+        el.style.position = "absolute";
+        el.style.left = `${left}%`;
+        el.style.top = "-20px";
+        el.style.width = `${size}px`;
+        el.style.height = `${size}px`;
+        el.style.backgroundColor = isGold ? "#F59E0B" : "#E5E7EB";
+        el.style.opacity = String(opacity);
+        el.style.borderRadius = "9999px";
+        el.style.animation = `landing-fall ${dur}s linear infinite`;
+        el.style.animationDelay = `${delay}s`;
+        el.style.boxShadow = isGold
+          ? `0 0 ${size * 2}px rgba(245, 158, 11, 0.4)`
+          : `0 0 ${size * 2}px rgba(229, 231, 235, 0.3)`;
+        root.appendChild(el);
+      }
+    };
+
+    const update = () => {
+      count = mobile.matches ? 18 : 50;
+      build();
+    };
+    build();
+    mobile.addEventListener("change", update);
+  })();
+</script>

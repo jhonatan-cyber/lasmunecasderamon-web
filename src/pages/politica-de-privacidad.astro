@@ -1,0 +1,238 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+
+const iconPath = (name: string) => {
+  const paths: Record<string, string> = {
+    shield: 'M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.063 2.522-.187 3.757-.103 1.034-.684 1.957-1.587 2.55a36.66 36.66 0 0 1-7.226 3.487 2.205 2.205 0 0 1-1.974 0A36.626 36.626 0 0 1 2.774 18.31c-.903-.594-1.484-1.517-1.587-2.55A41.04 41.04 0 0 1 1 12c0-1.268.063-2.522.187-3.757.103-1.034.684-1.957 1.587-2.55a36.66 36.66 0 0 1 7.226-3.487 2.205 2.205 0 0 1 1.974 0c2.357.949 4.868 2.105 7.226 3.487.903.593 1.484 1.516 1.587 2.55.124 1.235.187 2.49.187 3.757Z',
+    database: 'M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125',
+    eye: 'M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z',
+    lock: 'M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z',
+    users: 'M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z',
+    phone: 'M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z',
+  };
+  return paths[name] ?? '';
+};
+---
+
+<LegalLayout
+  title="Política de Privacidad - Las Muñecas de Ramón"
+  description="Política de privacidad y protección de datos de Las Muñecas de Ramón."
+  eyebrow="Protección de Datos"
+  heading="Política de Privacidad"
+  contentId="privacy-content"
+>
+  <section>
+    <h2 class="mb-4 flex items-center gap-2 text-2xl font-bold text-amber-400">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d={iconPath("shield")} />
+      </svg>
+      1. Introducción
+    </h2>
+    <p class="mb-3 leading-relaxed text-slate-300">
+      En <strong class="text-amber-400">Las Muñecas de Ramón</strong>, respetamos y protegemos la privacidad de nuestros clientes. Esta política describe cómo recopilamos, utilizamos y protegemos su información personal.
+    </p>
+    <p class="leading-relaxed text-slate-300">
+      Al utilizar nuestros servicios, usted acepta las prácticas descritas en esta política de privacidad.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="mb-4 flex items-center gap-2 text-2xl font-bold text-amber-400">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d={iconPath("database")} />
+      </svg>
+      2. Información que Recopilamos
+    </h2>
+    <div class="space-y-3">
+      <div class="rounded-lg border border-amber-500/20 bg-gray-800/50 p-4">
+        <h3 class="mb-2 text-lg font-semibold text-amber-300">Información Personal</h3>
+        <ul class="space-y-1 text-sm text-slate-300">
+          <li>• Nombre completo</li>
+          <li>• Número de teléfono</li>
+          <li>• Dirección de correo electrónico</li>
+          <li>• Fecha de nacimiento (para verificar mayoría de edad)</li>
+          <li>• Información de identificación</li>
+        </ul>
+      </div>
+      <div class="rounded-lg border border-amber-500/20 bg-gray-800/50 p-4">
+        <h3 class="mb-2 text-lg font-semibold text-amber-300">Información de Uso</h3>
+        <ul class="space-y-1 text-sm text-slate-300">
+          <li>• Fechas y horarios de visita</li>
+          <li>• Servicios utilizados</li>
+          <li>• Preferencias de servicio</li>
+          <li>• Comunicaciones con nuestro personal</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-4 flex items-center gap-2 text-2xl font-bold text-amber-400">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d={iconPath("eye")} />
+      </svg>
+      3. Cómo Utilizamos su Información
+    </h2>
+    <div class="grid gap-4 md:grid-cols-2">
+      <div class="rounded-lg border border-amber-500/20 bg-gray-800/50 p-4">
+        <h3 class="mb-2 text-lg font-semibold text-amber-300">Servicios Principales</h3>
+        <ul class="space-y-1 text-sm text-slate-300">
+          <li>• Proporcionar servicios de entretenimiento</li>
+          <li>• Gestionar reservas y citas</li>
+          <li>• Verificar identidad y edad</li>
+          <li>• Procesar pagos</li>
+        </ul>
+      </div>
+      <div class="rounded-lg border border-amber-500/20 bg-gray-800/50 p-4">
+        <h3 class="mb-2 text-lg font-semibold text-amber-300">Mejora del Servicio</h3>
+        <ul class="space-y-1 text-sm text-slate-300">
+          <li>• Personalizar la experiencia</li>
+          <li>• Mejorar nuestros servicios</li>
+          <li>• Comunicar ofertas especiales</li>
+          <li>• Resolver consultas y problemas</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-4 flex items-center gap-2 text-2xl font-bold text-amber-400">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d={iconPath("lock")} />
+      </svg>
+      4. Protección de sus Datos
+    </h2>
+    <div class="space-y-3">
+      <div class="rounded-lg border border-emerald-500/20 bg-gray-800/50 p-4">
+        <h3 class="mb-2 text-lg font-semibold text-emerald-300">Medidas de Seguridad</h3>
+        <ul class="space-y-1 text-sm text-slate-300">
+          <li>• Encriptación de datos sensibles</li>
+          <li>• Acceso restringido a información personal</li>
+          <li>• Capacitación del personal en privacidad</li>
+          <li>• Monitoreo regular de sistemas de seguridad</li>
+        </ul>
+      </div>
+      <p class="leading-relaxed text-slate-300">
+        Implementamos medidas técnicas y organizativas apropiadas para proteger su información personal contra acceso no autorizado, alteración, divulgación o destrucción.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-4 text-2xl font-bold text-amber-400">5. Compartir Información</h2>
+    <div class="space-y-3">
+      <p class="leading-relaxed text-slate-300">
+        No vendemos, alquilamos ni compartimos su información personal con terceros, excepto en las siguientes circunstancias:
+      </p>
+      <ul class="ml-4 space-y-2 text-slate-300">
+        <li class="flex items-start gap-2">
+          <div class="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500"></div>
+          <span>Con su consentimiento explícito</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <div class="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500"></div>
+          <span>Para cumplir con obligaciones legales</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <div class="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500"></div>
+          <span>Para proteger nuestros derechos y seguridad</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <div class="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500"></div>
+          <span>Con proveedores de servicios confiables (bajo acuerdos de confidencialidad)</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-4 flex items-center gap-2 text-2xl font-bold text-amber-400">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d={iconPath("users")} />
+      </svg>
+      6. Sus Derechos
+    </h2>
+    <div class="grid gap-4 md:grid-cols-2">
+      <div class="rounded-lg border border-blue-500/20 bg-gray-800/50 p-4">
+        <h3 class="mb-2 text-lg font-semibold text-blue-300">Acceso y Control</h3>
+        <ul class="space-y-1 text-sm text-slate-300">
+          <li>• Solicitar acceso a sus datos</li>
+          <li>• Corregir información inexacta</li>
+          <li>• Solicitar eliminación de datos</li>
+          <li>• Restringir el procesamiento</li>
+        </ul>
+      </div>
+      <div class="rounded-lg border border-purple-500/20 bg-gray-800/50 p-4">
+        <h3 class="mb-2 text-lg font-semibold text-purple-300">Comunicación</h3>
+        <ul class="space-y-1 text-sm text-slate-300">
+          <li>• Retirar consentimiento</li>
+          <li>• Obtener copia de sus datos</li>
+          <li>• Presentar quejas</li>
+          <li>• Recibir notificaciones de cambios</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-4 text-2xl font-bold text-amber-400">7. Cookies y Tecnologías de Seguimiento</h2>
+    <div class="rounded-lg border border-amber-500/20 bg-gray-800/50 p-4">
+      <p class="mb-3 text-sm leading-relaxed text-slate-300">
+        Utilizamos tecnologías mínimas de seguimiento para mejorar su experiencia. Puede configurar su navegador para rechazar cookies, aunque esto puede afectar la funcionalidad de algunos servicios.
+      </p>
+      <p class="text-sm leading-relaxed text-slate-300">
+        No utilizamos cookies de seguimiento de terceros ni tecnologías invasivas.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-4 text-2xl font-bold text-amber-400">8. Retención de Datos</h2>
+    <div class="space-y-3">
+      <p class="leading-relaxed text-slate-300">
+        Conservamos su información personal solo durante el tiempo necesario para cumplir con los propósitos descritos en esta política, a menos que la ley requiera un período de retención más largo.
+      </p>
+      <div class="rounded-lg border border-amber-500/20 bg-gray-800/50 p-4">
+        <h3 class="mb-2 text-lg font-semibold text-amber-300">Períodos de Retención</h3>
+        <ul class="space-y-1 text-sm text-slate-300">
+          <li>• Datos de clientes activos: Mientras mantenga relación comercial</li>
+          <li>• Registros de visitas: 2 años</li>
+          <li>• Información de contacto: Hasta solicitud de eliminación</li>
+          <li>• Datos legales requeridos: Según normativa aplicable</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-4 flex items-center gap-2 text-2xl font-bold text-amber-400">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d={iconPath("phone")} />
+      </svg>
+      9. Contacto y Consultas
+    </h2>
+    <div class="rounded-lg border border-amber-500/20 bg-gray-800/50 p-4">
+      <div class="grid gap-4 md:grid-cols-2">
+        <div>
+          <h3 class="mb-2 text-lg font-semibold text-amber-300">Información de Contacto</h3>
+          <div class="space-y-1 text-sm text-slate-300">
+            <p><strong>Teléfono:</strong> +56 9 87904824</p>
+            <p><strong>WhatsApp:</strong> Disponible 24/7</p>
+            <p><strong>Ubicación:</strong> Linares, Chile</p>
+          </div>
+        </div>
+        <div>
+          <h3 class="mb-2 text-lg font-semibold text-amber-300">Para Consultas de Privacidad</h3>
+          <p class="text-sm leading-relaxed text-slate-300">
+            Si tiene preguntas sobre esta política de privacidad o desea ejercer sus derechos, puede contactarnos a través de:
+          </p>
+          <ul class="mt-2 space-y-1 text-sm text-slate-300">
+            <li>• WhatsApp: +56 9 87904824</li>
+            <li>• Visita presencial en nuestro establecimiento</li>
+            <li>• Consulta con nuestro personal</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</LegalLayout>
