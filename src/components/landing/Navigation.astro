@@ -13,6 +13,9 @@ const menuItems = [
   { name: "Ubicación", href: "#location" },
   { name: "Trabaja con Nosotros", href: "#careers" },
 ];
+
+const isHomePage = Astro.url.pathname === "/" || Astro.url.pathname === "/landing";
+const buildHref = (href: string) => (isHomePage ? href : `/${href}`);
 ---
 
 <nav
@@ -22,12 +25,14 @@ const menuItems = [
 >
   <div
     data-nav-shell
-    class="relative mx-auto flex h-16 w-full max-w-7xl items-center justify-center rounded-full border site-border site-surface px-3 shadow-[0_12px_45px_rgba(0,0,0,0.35)] backdrop-blur-2xl transition-all duration-500 sm:h-[4.25rem] sm:px-4"
+    class="relative mx-auto grid h-16 w-full max-w-7xl grid-cols-[auto,1fr,auto] items-center rounded-full border site-border site-surface px-3 shadow-[0_12px_45px_rgba(0,0,0,0.35)] backdrop-blur-2xl transition-all duration-500 sm:h-[4.25rem] sm:px-4"
   >
     <a
       href="#home"
       id="landing-nav-logo"
-      class="absolute left-4 top-1/2 hidden -translate-y-1/2 items-center gap-3 opacity-0 -translate-x-2 scale-95 transition-all duration-700 ease-out lg:flex"
+      data-nav-item
+      style="--nav-delay: 0ms;"
+      class="hidden items-center gap-3 opacity-0 -translate-x-2 scale-95 transition-all duration-700 ease-out lg:flex lg:justify-self-start"
     >
       <img
         src="/img/system/logo2.png"
@@ -36,7 +41,7 @@ const menuItems = [
         height="185"
         loading="eager"
         class="object-contain drop-shadow-md transition-all duration-500 ease-in-out hover:scale-110"
-        style="width: 160px; height: auto;"
+        style="width: 152px; height: auto;"
       />
     </a>
 
@@ -55,27 +60,33 @@ const menuItems = [
       />
     </a>
 
-    <div class="hidden items-center justify-center gap-1.5 lg:flex">
+    <div class="hidden items-center justify-center gap-5 xl:gap-6 lg:flex">
       {
-        menuItems.map((item) => (
+        menuItems.map((item, index) => (
           <a
-            href={item.href}
-            class="group relative inline-flex items-center rounded-full px-3.5 py-2 text-sm font-bold uppercase leading-none tracking-wide opacity-80 transition-all duration-300 hover:bg-white/5 hover:text-gold-400 hover:opacity-100"
-            style="color: var(--site-fg);"
+            href={buildHref(item.href)}
+            data-nav-item
+            data-nav-link
+            data-nav-target={item.href.slice(1)}
+            style={`--nav-delay: ${index * 55 + 60}ms; color: var(--site-fg);`}
+            class="group relative inline-flex items-center self-center rounded-full px-2 py-1 text-[13px] font-bold uppercase leading-none tracking-wide opacity-80 transition-all duration-300 hover:text-gold-300 hover:opacity-100"
           >
+            <span class="absolute -inset-x-2 -inset-y-1 rounded-full bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 opacity-0 blur-md transition duration-1000 group-hover:opacity-25 group-hover:duration-200" />
+            <span class="nav-active-indicator pointer-events-none absolute -inset-x-3 -inset-y-2 rounded-full bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 opacity-0 blur-md transition-all duration-300" />
             {item.name}
-            <span class="absolute bottom-1.5 left-1/2 h-[1px] w-0 -translate-x-1/2 bg-gradient-to-r from-gold-400 via-gold-500 to-gold-600 transition-all duration-300 group-hover:w-3/5" />
           </a>
         ))
       }
     </div>
 
-    <div class="absolute right-2 top-1/2 flex -translate-y-1/2 items-center gap-2 lg:right-3">
+    <div class="flex items-center justify-end gap-2 justify-self-end -translate-x-4 sm:-translate-x-6">
       <button
         type="button"
         id="theme-toggle"
+        data-nav-item
+        style="--nav-delay: 360ms;"
         aria-label="Cambiar a modo claro"
-        class="inline-flex min-h-10 min-w-10 items-center justify-center rounded-full border border-white/15 bg-black/25 text-white transition-all duration-300 hover:bg-white/10 hover:text-gold-300"
+        class="inline-flex items-center justify-center self-start p-1 text-white transition-all duration-300 hover:text-gold-300 -translate-y-[10px] translate-x-1"
       >
         <svg
           id="theme-toggle-icon"
@@ -97,10 +108,12 @@ const menuItems = [
       <button
         type="button"
         id="mobile-menu-toggle"
+        data-nav-item
+        style="--nav-delay: 420ms;"
         aria-label="Abrir menú"
         aria-controls="landing-mobile-menu"
         aria-expanded="false"
-        class="inline-flex min-h-10 min-w-10 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white transition-all duration-300 hover:bg-black/60 hover:text-gold-300 lg:hidden"
+        class="inline-flex min-h-10 min-w-10 self-center items-center justify-center rounded-full border border-white/20 bg-black/40 text-white transition-all duration-300 hover:bg-black/60 hover:text-gold-300 lg:hidden"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -124,9 +137,11 @@ const menuItems = [
       {
         menuItems.map((item) => (
           <a
-            href={item.href}
+            href={buildHref(item.href)}
             class="mobile-nav-link block rounded-2xl px-4 py-2.5 text-sm font-semibold uppercase tracking-wide opacity-80 transition-all duration-300 hover:bg-white/5 hover:text-gold-400 hover:opacity-100"
             style="color: var(--site-fg);"
+            data-nav-link
+            data-nav-target={item.href.slice(1)}
           >
             {item.name}
           </a>
@@ -139,6 +154,10 @@ const menuItems = [
 <script>
   // Navigation: scroll-based floating glass treatment + mobile menu toggle
   (function () {
+    type ThemeWindow = Window & {
+      setSiteTheme?: (theme: string) => void;
+    };
+
     var nav = document.getElementById("landing-nav");
     var shell = nav ? nav.querySelector("[data-nav-shell]") : null;
     var logo = document.getElementById("landing-nav-logo");
@@ -149,23 +168,26 @@ const menuItems = [
     var mobileLinks = document.querySelectorAll(".mobile-nav-link");
     if (!nav || !shell || !toggle || !mobileMenu || !logo || !themeToggle || !themeToggleIcon) return;
 
+    var navEl = nav;
+    var navLinks = nav.querySelectorAll("[data-nav-link]");
     var shellEl = shell;
     var logoEl = logo;
     var themeToggleEl = themeToggle;
     var themeToggleIconEl = themeToggleIcon;
     var toggleEl = toggle;
     var mobileMenuEl = mobileMenu;
+    var themeWindow = window as ThemeWindow;
 
     function getTheme() {
       return document.documentElement.dataset.theme === "light" ? "light" : "dark";
     }
 
-    function setTheme(theme) {
+    function setTheme(theme: string) {
       document.documentElement.dataset.theme = theme;
       document.documentElement.style.colorScheme = theme;
       window.localStorage.setItem("theme", theme);
-      if (window.setSiteTheme) {
-        window.setSiteTheme(theme);
+      if (themeWindow.setSiteTheme) {
+        themeWindow.setSiteTheme(theme);
       }
       themeToggleEl.setAttribute("aria-label", theme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
       if (theme === "dark") {
@@ -179,26 +201,142 @@ const menuItems = [
       var y = window.scrollY;
 
       if (y > 50) {
-        shellEl.classList.add("bg-black/75", "shadow-[0_18px_60px_rgba(0,0,0,0.55)]");
-        shellEl.classList.remove("bg-black/55", "shadow-[0_12px_45px_rgba(0,0,0,0.35)]");
-      } else {
-        shellEl.classList.remove("bg-black/75", "shadow-[0_18px_60px_rgba(0,0,0,0.55)]");
-        shellEl.classList.add("bg-black/55", "shadow-[0_12px_45px_rgba(0,0,0,0.35)]");
-      }
+        navEl.classList.remove("top-3", "sm:top-4", "px-3", "sm:px-6");
+        navEl.classList.add("top-0", "px-2", "sm:px-4");
 
-      if (y > 80) {
+        shellEl.classList.remove("rounded-full", "sm:h-[4.25rem]", "bg-black/55", "shadow-[0_12px_45px_rgba(0,0,0,0.35)]");
+        shellEl.classList.add(
+          "w-full",
+          "max-w-[1296px]",
+          "h-14",
+          "sm:h-16",
+          "rounded-t-none",
+          "rounded-b-2xl",
+          "border-t",
+          "bg-black/90",
+          "shadow-[0_8px_24px_rgba(0,0,0,0.28)]"
+        );
+
         logoEl.classList.remove("opacity-0", "-translate-x-2", "scale-95");
         logoEl.classList.add("opacity-100", "translate-x-0", "scale-100");
       } else {
+        navEl.classList.add("top-3", "sm:top-4", "px-3", "sm:px-6");
+        navEl.classList.remove("top-0", "px-2", "sm:px-4");
+
+        shellEl.classList.add("rounded-full", "sm:h-[4.25rem]", "bg-black/55", "shadow-[0_12px_45px_rgba(0,0,0,0.35)]");
+        shellEl.classList.remove(
+          "w-full",
+          "max-w-[1296px]",
+          "h-14",
+          "sm:h-16",
+          "rounded-t-none",
+          "rounded-b-2xl",
+          "border-t",
+          "bg-black/90",
+          "shadow-[0_8px_24px_rgba(0,0,0,0.28)]"
+        );
+
         logoEl.classList.add("opacity-0", "-translate-x-2", "scale-95");
         logoEl.classList.remove("opacity-100", "translate-x-0", "scale-100");
+        shellEl.classList.add("bg-black/55", "shadow-[0_12px_45px_rgba(0,0,0,0.35)]");
       }
+    }
+
+    function scrollToTarget(hash: string) {
+      var target = document.querySelector(hash);
+      if (!target) return false;
+
+      if (hash === "#home") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (target instanceof HTMLElement) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      return true;
+    }
+
+    function setActiveTarget(targetId: string) {
+      if (!targetId) return;
+
+      Array.prototype.forEach.call(navLinks, function (link) {
+        var isActive = link.getAttribute("data-nav-target") === targetId;
+        var indicator = link.querySelector(".nav-active-indicator");
+
+        link.setAttribute("aria-current", isActive ? "page" : "false");
+        link.classList.toggle("text-gold-300", isActive);
+        link.classList.toggle("opacity-100", isActive);
+
+        if (indicator instanceof HTMLElement) {
+          indicator.classList.toggle("opacity-35", isActive);
+          indicator.classList.toggle("opacity-0", !isActive);
+        }
+      });
+    }
+
+    function updateActiveFromScroll() {
+      if (window.scrollY < 80) {
+        setActiveTarget("home");
+        return;
+      }
+
+      var activationLine = Math.max(120, Math.round(window.innerHeight * 0.33));
+      var activeId = "home";
+
+      for (var i = 0; i < sections.length; i++) {
+        var section = sections[i];
+        var rect = section.getBoundingClientRect();
+        if (rect.top <= activationLine) {
+          activeId = section.id;
+        } else {
+          break;
+        }
+      }
+
+      setActiveTarget(activeId);
     }
 
     var isOpen = false;
     themeToggleEl.addEventListener("click", function () {
       setTheme(getTheme() === "dark" ? "light" : "dark");
     });
+
+    Array.prototype.forEach.call(navLinks, function (link) {
+      link.addEventListener("click", function (event: MouseEvent) {
+        var href = link.getAttribute("href");
+        if (!href) return;
+
+        var hash = href.indexOf("#") >= 0 ? href.slice(href.indexOf("#")) : "";
+        var handled = hash ? scrollToTarget(hash) : false;
+        if (handled) {
+          event.preventDefault();
+          if (hash.length > 1) {
+            setActiveTarget(hash.slice(1));
+          }
+          isOpen = false;
+          mobileMenuEl.classList.add("hidden");
+          toggleEl.setAttribute("aria-expanded", "false");
+          toggleEl.setAttribute("aria-label", "Abrir menú");
+        }
+      });
+    });
+
+    var sectionIds = ["home", "about", "services", "events", "location", "careers"];
+    var sections = sectionIds
+      .map(function (id) {
+        var element = document.getElementById(id);
+        return element instanceof HTMLElement ? element : null;
+      })
+      .filter(Boolean) as HTMLElement[];
+
+    var scrollTicking = false;
+    function requestScrollStateUpdate() {
+      if (scrollTicking) return;
+      scrollTicking = true;
+      window.requestAnimationFrame(function () {
+        scrollTicking = false;
+        updateActiveFromScroll();
+      });
+    }
 
     toggleEl.addEventListener("click", function () {
       isOpen = !isOpen;
@@ -217,7 +355,16 @@ const menuItems = [
     });
 
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("scroll", requestScrollStateUpdate, { passive: true });
+    window.addEventListener("resize", requestScrollStateUpdate, { passive: true });
     setTheme(getTheme());
+    setActiveTarget(window.location.hash.replace("#", "") || "home");
     onScroll();
+    updateActiveFromScroll();
+    requestScrollStateUpdate();
+
+    requestAnimationFrame(function () {
+      document.documentElement.classList.add("nav-ready");
+    });
   })();
 </script>
