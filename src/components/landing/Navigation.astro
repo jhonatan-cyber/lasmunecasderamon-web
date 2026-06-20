@@ -1,8 +1,5 @@
 ---
-/**
- * Navigation - floating centered nav with scroll-based compact styling.
- * Scroll behavior is handled by a small inline script (no React).
- */
+
 import { SITE } from "../../lib/seo";
 
 const menuItems = [
@@ -152,7 +149,7 @@ const buildHref = (href: string) => (isHomePage ? href : `/${href}`);
 </nav>
 
 <script>
-  // Navigation: scroll-based floating glass treatment + mobile menu toggle
+  
   (function () {
     type ThemeWindow = Window & {
       setSiteTheme?: (theme: string) => void;

@@ -1,8 +1,5 @@
 ---
-/**
- * AboutSection — auto-rotating image slider + stats + copy.
- * Mirrors AboutSection.tsx. Slider uses a small inline script.
- */
+
 
 const images = [
   { url: "https://images.unsplash.com/photo-1566737236500-c8ac43014a67", alt: "Ambiente de Lujo" },
@@ -147,7 +144,7 @@ const iconPath = (name: string) => {
 </section>
 
 <script>
-  // Generic image slider: [data-slider-index], [data-slider-prev], [data-slider-next], [data-slider-dots]
+  
   (function () {
     document.querySelectorAll("[data-slider-index]").forEach(function (first) {
       var section = first.parentElement;

@@ -1,7 +1,4 @@
-/**
- * SEO helpers — Las Muñecas de Ramón
- * Nightclub exclusivo en Linares, Chile.
- */
+
 
 export const SITE = {
   name: "Las Muñecas de Ramón",
@@ -62,10 +59,7 @@ export function absoluteUrl(path: string): string {
   return new URL(path, SITE.url).toString();
 }
 
-/**
- * Schema.org JSON-LD for the nightclub.
- * Used on the home and landing pages.
- */
+
 export function nightClubJsonLd(): Record<string, unknown> {
   return {
     "@context": "https://schema.org",
