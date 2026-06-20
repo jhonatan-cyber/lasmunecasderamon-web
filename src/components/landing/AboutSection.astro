@@ -154,27 +154,27 @@ const iconPath = (name: string) => {
       if (section.dataset.sliderInit === "1") return;
       section.dataset.sliderInit = "1";
 
-      var dotsContainer = section.querySelector("[data-slider-dots]");
-      var prevBtn = section.querySelector("[data-slider-prev]");
-      var nextBtn = section.querySelector("[data-slider-next]");
-      var current = 0;
-      var timer = null;
+      const dotsContainer = section.querySelector("[data-slider-dots]");
+      const prevBtn = section.querySelector("[data-slider-prev]");
+      const nextBtn = section.querySelector("[data-slider-next]");
+      let current = 0;
+      let timer: any = null;
 
       if (dotsContainer) {
         slides.forEach(function (_, i) {
-          var dot = document.createElement("button");
+          const dot = document.createElement("button");
           dot.type = "button";
           dot.setAttribute("aria-label", "Ir a imagen " + (i + 1));
           dot.className = "h-2 w-2 rounded-full bg-white/30 transition-all duration-300 hover:bg-white/50";
           if (i === 0) dot.className += " w-6 bg-gold-500";
           dot.addEventListener("click", function () { goTo(i, true); });
-          dotsContainer.appendChild(dot);
+          dotsContainer!.appendChild(dot);
         });
       }
 
-      var dots = dotsContainer ? Array.from(dotsContainer.children) : [];
+      const dots = dotsContainer ? Array.from(dotsContainer.children) : [];
 
-      function goTo(i, fromUser) {
+      function goTo(i: number, fromUser?: boolean) {
         if (slides[current]) slides[current].classList.remove("active");
         if (dots[current]) {
           dots[current].classList.remove("w-6", "bg-gold-500");
