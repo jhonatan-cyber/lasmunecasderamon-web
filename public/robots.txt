@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lasmuñecasderamon.com/sitemap-index.xml
+Sitemap: https://xn--lasmuecasderamon-bub.com/sitemap-index.xml

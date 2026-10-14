@@ -1,14 +1,13 @@
 ---
-
 import { SITE } from "../../lib/seo";
 
 const menuItems = [
   { name: "Inicio", href: "#home" },
   { name: "Nosotros", href: "#about" },
-  { name: "Servicios", href: "#services" },
   { name: "Eventos", href: "#events" },
+  { name: "Servicios", href: "#services" },
+  { name: "Galería", href: "#galeria" },
   { name: "Ubicación", href: "#location" },
-  { name: "Trabaja con Nosotros", href: "#careers" },
 ];
 
 const isHomePage = Astro.url.pathname === "/" || Astro.url.pathname === "/landing";
@@ -22,7 +21,7 @@ const buildHref = (href: string) => (isHomePage ? href : `/${href}`);
 >
   <div
     data-nav-shell
-    class="relative mx-auto grid h-16 w-full max-w-7xl grid-cols-[auto,1fr,auto] items-center rounded-full border site-border site-surface px-3 shadow-[0_12px_45px_rgba(0,0,0,0.35)] backdrop-blur-2xl transition-all duration-500 sm:h-[4.25rem] sm:px-4"
+    class="relative mx-auto grid h-16 w-full max-w-7xl grid-cols-[auto,1fr,auto] items-center rounded-full border border-white/10 bg-ink-900/70 px-3 shadow-[0_0_40px_rgba(221,179,73,0.08),0_12px_45px_rgba(0,0,0,0.6)] backdrop-blur-2xl transition-all duration-500 sm:h-[4.25rem] sm:px-4"
   >
     <a
       href="#home"
@@ -32,13 +31,14 @@ const buildHref = (href: string) => (isHomePage ? href : `/${href}`);
       class="hidden items-center gap-3 opacity-0 -translate-x-2 scale-95 transition-all duration-700 ease-out lg:flex lg:justify-self-start"
     >
       <img
-        src="/img/system/logo2.png"
+        src="/img/system/logo2-480.webp"
         alt={`${SITE.name} - Nightclub exclusivo en Linares`}
-        width="288"
-        height="185"
+        width="264"
+        height="169"
         loading="eager"
-        class="object-contain drop-shadow-md transition-all duration-500 ease-in-out hover:scale-110"
-        style="width: 152px; height: auto;"
+        decoding="async"
+        class="object-contain drop-shadow-[0_0_12px_rgba(221,179,73,0.35)] transition-all duration-500 ease-in-out hover:scale-110"
+        style="width: 132px; height: auto;"
       />
     </a>
 
@@ -48,16 +48,18 @@ const buildHref = (href: string) => (isHomePage ? href : `/${href}`);
       class="absolute left-4 top-1/2 flex -translate-y-1/2 items-center gap-3 lg:hidden"
     >
       <img
-        src="/img/system/logo1.png"
+        src="/img/system/logo1-144.webp"
         alt={`${SITE.name} - Nightclub exclusivo en Linares`}
-        width="128"
-        height="64"
-        class="object-contain drop-shadow-md transition-all duration-500 ease-in-out"
+        width="36"
+        height="36"
+        loading="eager"
+        decoding="async"
+        class="object-contain drop-shadow-[0_0_10px_rgba(221,179,73,0.35)] transition-all duration-500 ease-in-out"
         style="width: auto; height: 36px;"
       />
     </a>
 
-    <div class="hidden items-center justify-center gap-5 xl:gap-6 lg:flex">
+    <div class="hidden items-center justify-center gap-4 xl:gap-6 lg:flex">
       {
         menuItems.map((item, index) => (
           <a
@@ -66,51 +68,25 @@ const buildHref = (href: string) => (isHomePage ? href : `/${href}`);
             data-nav-link
             data-nav-target={item.href.slice(1)}
             style={`--nav-delay: ${index * 55 + 60}ms; color: var(--site-fg);`}
-            class="group relative inline-flex items-center self-center rounded-full px-2 py-1 text-[13px] font-bold uppercase leading-none tracking-wide opacity-80 transition-all duration-300 hover:text-gold-300 hover:opacity-100"
+            class="group relative inline-flex items-center self-center rounded-full px-2 py-1 text-[12px] font-bold uppercase leading-none tracking-[0.14em] opacity-80 transition-all duration-300 hover:text-gold-300 hover:opacity-100"
           >
-            <span class="absolute -inset-x-2 -inset-y-1 rounded-full bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 opacity-0 blur-md transition duration-1000 group-hover:opacity-25 group-hover:duration-200" />
-            <span class="nav-active-indicator pointer-events-none absolute -inset-x-3 -inset-y-2 rounded-full bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 opacity-0 blur-md transition-all duration-300" />
+            <span class="nav-active-indicator pointer-events-none absolute -inset-x-3 -inset-y-2 rounded-full bg-gold-500/15 opacity-0 shadow-[0_0_18px_rgba(221,179,73,0.35)] transition-all duration-300" />
             {item.name}
           </a>
         ))
       }
     </div>
 
-    <div class="flex items-center justify-end gap-2 justify-self-end -translate-x-4 sm:-translate-x-6">
-      <button
-        type="button"
-        id="theme-toggle"
-        data-nav-item
-        style="--nav-delay: 360ms;"
-        aria-label="Cambiar a modo claro"
-        class="inline-flex items-center justify-center self-start p-1 text-white transition-all duration-300 hover:text-gold-300 -translate-y-[10px] translate-x-1"
-      >
-        <svg
-          id="theme-toggle-icon"
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-[18px] w-[18px]"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="2"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 3v1.5m0 15V21m8.485-8.485H21M3 12h1.5m12.02-6.02 1.06-1.06M4.44 19.56l1.06-1.06m0-13.02-1.06-1.06m13.02 13.02 1.06 1.06M12 7.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5Z"
-          />
-        </svg>
-      </button>
+    <div class="col-start-3 flex items-center justify-end gap-2 justify-self-end">
 
       <button
         type="button"
         id="mobile-menu-toggle"
-        data-nav-item
-        style="--nav-delay: 420ms;"
+        style="--nav-delay: 460ms;"
         aria-label="Abrir menú"
         aria-controls="landing-mobile-menu"
         aria-expanded="false"
-        class="inline-flex min-h-10 min-w-10 self-center items-center justify-center rounded-full border border-white/20 bg-black/40 text-white transition-all duration-300 hover:bg-black/60 hover:text-gold-300 lg:hidden"
+        class="inline-flex min-h-10 min-w-10 self-center items-center justify-center rounded-full border border-white/15 bg-black/40 text-white transition-all duration-300 hover:border-gold-500/50 hover:text-gold-300 lg:hidden"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -128,14 +104,14 @@ const buildHref = (href: string) => (isHomePage ? href : `/${href}`);
 
   <div
     id="landing-mobile-menu"
-    class="mx-auto mt-2 hidden w-[calc(100%-0.75rem)] max-w-7xl rounded-3xl border site-border site-surface-strong px-2 py-2 shadow-[0_18px_60px_rgba(0,0,0,0.5)] backdrop-blur-2xl sm:w-[calc(100%-3rem)] lg:hidden"
+    class="mx-auto mt-2 hidden w-[calc(100%-0.75rem)] max-w-7xl rounded-3xl border border-white/10 bg-ink-950/95 px-2 py-2 shadow-[0_18px_60px_rgba(0,0,0,0.7)] backdrop-blur-2xl sm:w-[calc(100%-3rem)] lg:hidden"
   >
     <div class="flex flex-col gap-1 p-2">
       {
         menuItems.map((item) => (
           <a
             href={buildHref(item.href)}
-            class="mobile-nav-link block rounded-2xl px-4 py-2.5 text-sm font-semibold uppercase tracking-wide opacity-80 transition-all duration-300 hover:bg-white/5 hover:text-gold-400 hover:opacity-100"
+            class="mobile-nav-link block rounded-2xl px-4 py-2.5 text-sm font-semibold uppercase tracking-wide opacity-80 transition-all duration-300 hover:bg-gold-500/10 hover:text-gold-300 hover:opacity-100"
             style="color: var(--site-fg);"
             data-nav-link
             data-nav-target={item.href.slice(1)}
@@ -149,106 +125,34 @@ const buildHref = (href: string) => (isHomePage ? href : `/${href}`);
 </nav>
 
 <script>
-  
   (function () {
-    type ThemeWindow = Window & {
-      setSiteTheme?: (theme: string) => void;
-    };
-
     var nav = document.getElementById("landing-nav");
-    var shell = nav ? nav.querySelector("[data-nav-shell]") : null;
-    var logo = document.getElementById("landing-nav-logo");
-    var themeToggle = document.getElementById("theme-toggle");
-    var themeToggleIcon = document.getElementById("theme-toggle-icon");
     var toggle = document.getElementById("mobile-menu-toggle");
     var mobileMenu = document.getElementById("landing-mobile-menu");
     var mobileLinks = document.querySelectorAll(".mobile-nav-link");
-    if (!nav || !shell || !toggle || !mobileMenu || !logo || !themeToggle || !themeToggleIcon) return;
+    if (!nav || !toggle || !mobileMenu) return;
 
-    var navEl = nav;
+    var navEl = nav as HTMLElement;
+    var toggleEl = toggle as HTMLElement;
+    var mobileMenuEl = mobileMenu as HTMLElement;
+
     var navLinks = nav.querySelectorAll("[data-nav-link]");
-    var shellEl = shell;
-    var logoEl = logo;
-    var themeToggleEl = themeToggle;
-    var themeToggleIconEl = themeToggleIcon;
-    var toggleEl = toggle;
-    var mobileMenuEl = mobileMenu;
-    var themeWindow = window as ThemeWindow;
 
-    function getTheme() {
-      return document.documentElement.dataset.theme === "light" ? "light" : "dark";
-    }
-
-    function setTheme(theme: string) {
-      document.documentElement.dataset.theme = theme;
-      document.documentElement.style.colorScheme = theme;
-      window.localStorage.setItem("theme", theme);
-      if (themeWindow.setSiteTheme) {
-        themeWindow.setSiteTheme(theme);
-      }
-      themeToggleEl.setAttribute("aria-label", theme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
-      if (theme === "dark") {
-        themeToggleIconEl.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9 9 0 0 1 9 3.248a7.5 7.5 0 1 0 12.752 11.754Z" />';
-      } else {
-        themeToggleIconEl.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1.5m0 15V21M4.5 12H3m18 0h-1.5M5.636 5.636 4.576 4.576m14.848 14.848-1.06-1.06M5.636 18.364l-1.06 1.06m14.848-14.848-1.06 1.06M12 7.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5Z" />';
-      }
-    }
-
-    function onScroll() {
-      var y = window.scrollY;
-
-      if (y > 50) {
-        navEl.classList.remove("top-3", "sm:top-4", "px-3", "sm:px-6");
-        navEl.classList.add("top-0", "px-2", "sm:px-4");
-
-        shellEl.classList.remove("rounded-full", "sm:h-[4.25rem]", "bg-black/55", "shadow-[0_12px_45px_rgba(0,0,0,0.35)]");
-        shellEl.classList.add(
-          "w-full",
-          "max-w-[1296px]",
-          "h-14",
-          "sm:h-16",
-          "rounded-t-none",
-          "rounded-b-2xl",
-          "border-t",
-          "bg-black/90",
-          "shadow-[0_8px_24px_rgba(0,0,0,0.28)]"
-        );
-
-        logoEl.classList.remove("opacity-0", "-translate-x-2", "scale-95");
-        logoEl.classList.add("opacity-100", "translate-x-0", "scale-100");
-      } else {
-        navEl.classList.add("top-3", "sm:top-4", "px-3", "sm:px-6");
-        navEl.classList.remove("top-0", "px-2", "sm:px-4");
-
-        shellEl.classList.add("rounded-full", "sm:h-[4.25rem]", "bg-black/55", "shadow-[0_12px_45px_rgba(0,0,0,0.35)]");
-        shellEl.classList.remove(
-          "w-full",
-          "max-w-[1296px]",
-          "h-14",
-          "sm:h-16",
-          "rounded-t-none",
-          "rounded-b-2xl",
-          "border-t",
-          "bg-black/90",
-          "shadow-[0_8px_24px_rgba(0,0,0,0.28)]"
-        );
-
-        logoEl.classList.add("opacity-0", "-translate-x-2", "scale-95");
-        logoEl.classList.remove("opacity-100", "translate-x-0", "scale-100");
-        shellEl.classList.add("bg-black/55", "shadow-[0_12px_45px_rgba(0,0,0,0.35)]");
-      }
-    }
+    // Mismo desplazamiento que el ancla nativa, pero respetando prefers-reduced-motion
+    // (behavior: "smooth" en JS ignora scroll-behavior: auto del CSS).
+    var NAV_OFFSET = 112; // 7rem, igual que el scroll-margin-top de las secciones
 
     function scrollToTarget(hash: string) {
       var target = document.querySelector(hash);
       if (!target) return false;
 
-      if (hash === "#home") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else if (target instanceof HTMLElement) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      var top = 0;
+      if (hash !== "#home" && target instanceof HTMLElement) {
+        top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - NAV_OFFSET);
       }
 
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: top, behavior: reduce ? "auto" : "smooth" });
       return true;
     }
 
@@ -262,40 +166,60 @@ const buildHref = (href: string) => (isHomePage ? href : `/${href}`);
         link.setAttribute("aria-current", isActive ? "page" : "false");
         link.classList.toggle("text-gold-300", isActive);
         link.classList.toggle("opacity-100", isActive);
+        link.classList.toggle("opacity-80", !isActive);
 
         if (indicator instanceof HTMLElement) {
-          indicator.classList.toggle("opacity-35", isActive);
+          indicator.classList.toggle("opacity-100", isActive);
           indicator.classList.toggle("opacity-0", !isActive);
         }
       });
     }
 
-    function updateActiveFromScroll() {
-      if (window.scrollY < 80) {
-        setActiveTarget("home");
-        return;
-      }
+    // Scroll-spy sin listener de scroll: una banda de 1px a un tercio del viewport
+    // decide que seccion esta activa.
+    var activeId = "";
+    var sectionObserver: IntersectionObserver | null = null;
 
-      var activationLine = Math.max(120, Math.round(window.innerHeight * 0.33));
-      var activeId = "home";
+    // El observador solo avisa de que la linea de activacion cambio de seccion;
+    // que seccion manda lo decide la posicion real, para que los huecos entre
+    // secciones y el hero (100svh, se solapa con la siguiente) no dejen el menu
+    // showing "Inicio" a media pagina.
+    function pickActive() {
+      var line = Math.max(120, Math.round(window.innerHeight * 0.33));
+      var next = "home";
 
       for (var i = 0; i < sections.length; i++) {
-        var section = sections[i];
-        var rect = section.getBoundingClientRect();
-        if (rect.top <= activationLine) {
-          activeId = section.id;
-        } else {
-          break;
-        }
+        if (sections[i].getBoundingClientRect().top <= line) next = sections[i].id;
       }
 
-      setActiveTarget(activeId);
+      if (next !== activeId) {
+        activeId = next;
+        setActiveTarget(next);
+      }
+    }
+
+    function observeSections() {
+      if (sectionObserver) sectionObserver.disconnect();
+
+      var line = Math.max(120, Math.round(window.innerHeight * 0.33));
+      sectionObserver = new IntersectionObserver(
+        function () {
+          pickActive();
+        },
+        {
+          rootMargin:
+            "-" + line + "px 0px -" + Math.max(0, window.innerHeight - line - 1) + "px 0px",
+          threshold: 0,
+        },
+      );
+
+      sections.forEach(function (section) {
+        sectionObserver!.observe(section);
+      });
+      pickActive();
     }
 
     var isOpen = false;
-    themeToggleEl.addEventListener("click", function () {
-      setTheme(getTheme() === "dark" ? "light" : "dark");
-    });
 
     Array.prototype.forEach.call(navLinks, function (link) {
       link.addEventListener("click", function (event: MouseEvent) {
@@ -317,23 +241,13 @@ const buildHref = (href: string) => (isHomePage ? href : `/${href}`);
       });
     });
 
-    var sectionIds = ["home", "about", "services", "events", "location", "careers"];
+    var sectionIds = ["home", "about", "events", "services", "galeria", "location"];
     var sections = sectionIds
       .map(function (id) {
         var element = document.getElementById(id);
         return element instanceof HTMLElement ? element : null;
       })
       .filter(Boolean) as HTMLElement[];
-
-    var scrollTicking = false;
-    function requestScrollStateUpdate() {
-      if (scrollTicking) return;
-      scrollTicking = true;
-      window.requestAnimationFrame(function () {
-        scrollTicking = false;
-        updateActiveFromScroll();
-      });
-    }
 
     toggleEl.addEventListener("click", function () {
       isOpen = !isOpen;
@@ -351,14 +265,14 @@ const buildHref = (href: string) => (isHomePage ? href : `/${href}`);
       });
     });
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("scroll", requestScrollStateUpdate, { passive: true });
-    window.addEventListener("resize", requestScrollStateUpdate, { passive: true });
-    setTheme(getTheme());
+    var resizeTimer: number | undefined;
+    window.addEventListener("resize", function () {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(observeSections, 150);
+    });
+
     setActiveTarget(window.location.hash.replace("#", "") || "home");
-    onScroll();
-    updateActiveFromScroll();
-    requestScrollStateUpdate();
+    observeSections();
 
     requestAnimationFrame(function () {
       document.documentElement.classList.add("nav-ready");

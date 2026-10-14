@@ -17,7 +17,16 @@ export default defineConfig({
   integrations: [
     tailwind({ applyBaseStyles: true }),
     mdx(),
-    sitemap(),
+    sitemap({
+      // /landing es noindex (duplicado de /) — no debe estar en el sitemap
+      filter: (page) => !page.includes("/landing"),
+      serialize: (item) => ({
+        ...item,
+        lastmod: item.lastmod ?? new Date().toISOString().slice(0, 10),
+        changefreq: item.url.endsWith("/") ? "weekly" : "monthly",
+        priority: new URL(item.url).pathname === "/" ? 1.0 : 0.4,
+      }),
+    }),
   ],
   prefetch: {
     prefetchAll: true,

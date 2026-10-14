@@ -1,0 +1,146 @@
+---
+import { SITE } from "../../lib/seo";
+
+const handle = "@lasmunecasderamon";
+
+const igSrc = (id: string, w: number) => `/img/${id}-${w}.webp`;
+const igSrcset = (id: string) =>
+  [300, 600].map((w) => `${igSrc(id, w)} ${w}w`).join(", ");
+const igSizes = "(max-width: 640px) 46vw, (min-width: 1024px) 15vw, 30vw";
+
+const posts = [
+  { id: "instagram-1" },
+  { id: "instagram-2" },
+  { id: "instagram-3" },
+  { id: "instagram-4" },
+  { id: "instagram-5" },
+  { id: "instagram-6" },
+];
+const igAlt = "Publicación de Las Muñecas de Ramón en Instagram";
+---
+
+<section id="instagram" class="relative overflow-hidden py-20 sm:py-28">
+  <div class="pointer-events-none absolute left-1/4 bottom-0 h-[380px] w-[380px] rounded-full glow-gold" aria-hidden="true"></div>
+
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-12 flex scroll-reveal flex-col items-center gap-7 text-center">
+      <div>
+        <h2 class="font-display text-4xl uppercase leading-[1.02] sm:text-5xl md:text-6xl">
+          <span class="text-white">Sigue la</span>
+          <span class="gradient-text-gold"> noche</span>
+        </h2>
+        <p class="mx-auto mt-4 inline-flex items-center gap-2 text-sm font-medium text-white/55">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="h-4 w-4 text-gold-400" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="5" ry="5"></rect>
+            <circle cx="12" cy="12" r="4"></circle>
+            <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none"></circle>
+          </svg>
+          {handle} · Los mejores momentos, primero en nuestras historias
+        </p>
+      </div>
+
+      <a
+        href={SITE.social.instagram}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-gold px-8 py-3.5 text-sm"
+      >
+        Seguir en Instagram
+      </a>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3 scroll-reveal sm:grid-cols-3 sm:gap-4 lg:grid-cols-6" style="--reveal-delay: 100ms;">
+      {
+        posts.map((post) => (
+          <a
+            href={SITE.social.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group relative aspect-square overflow-hidden rounded-2xl border border-white/10"
+            aria-label={igAlt}
+            data-ig-tile
+          >
+            <img
+              src={igSrc(post.id, 300)}
+              srcset={igSrcset(post.id)}
+              sizes={igSizes}
+              alt={igAlt}
+              loading="lazy"
+              decoding="async"
+              class="h-full w-full object-cover transition-[opacity,transform] duration-700 group-hover:scale-110"
+            />
+            <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gold-600/70 to-bronze-600/70 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="h-8 w-8 text-white" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="5" ry="5"></rect>
+                <circle cx="12" cy="12" r="4"></circle>
+                <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none"></circle>
+              </svg>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+
+    <p data-ig-note class="mt-6 text-center text-[11px] text-white/60">
+      Vista previa: estas imágenes se reemplazan automáticamente por las últimas publicaciones de @lasmunecasderamon.
+    </p>
+  </div>
+</section>
+
+<script>
+  (async function () {
+    try {
+      const res = await fetch("/api/instagram", { signal: AbortSignal.timeout(9000) });
+      if (!res.ok) return;
+      const data = await res.json();
+      if (!data.configured || !Array.isArray(data.posts) || data.posts.length === 0) return;
+
+      const tiles = document.querySelectorAll<HTMLAnchorElement>("[data-ig-tile]");
+      const count = Math.min(tiles.length, data.posts.length);
+
+      for (let i = 0; i < count; i++) {
+        const post = data.posts[i];
+        const tile = tiles[i];
+        const img = tile.querySelector("img");
+        if (!img) continue;
+
+        const src =
+          post.mediaType === "VIDEO"
+            ? post.thumbnailUrl || post.mediaUrl
+            : post.mediaUrl;
+        if (!src) continue;
+
+        // srcset/sizes del placeholder ganarían sobre src: hay que quitarlos
+        img.removeAttribute("srcset");
+        img.removeAttribute("sizes");
+
+        if (img.complete && img.naturalWidth > 0) {
+          // Placeholder ya visible: cross-fade al post real
+          img.style.opacity = "0";
+          img.src = src;
+          img.addEventListener("load", () => { img.style.opacity = "1"; }, { once: true });
+          img.addEventListener("error", () => { img.style.opacity = "1"; }, { once: true });
+        } else {
+          // Lazy y aún no cargado: nunca descarga el placeholder
+          img.src = src;
+        }
+
+        if (post.caption) {
+          img.alt = post.caption.slice(0, 120);
+        }
+        if (post.permalink) {
+          tile.href = post.permalink;
+          tile.setAttribute(
+            "aria-label",
+            "Ver publicación en Instagram: " + (post.caption || "del club").slice(0, 80)
+          );
+        }
+      }
+
+      document.querySelector("[data-ig-note]")?.remove();
+    } catch (err) {
+      // Sin token, sin red o API caída: los placeholders permanecen.
+      console.error("[IG] no se pudo cargar el feed:", err);
+    }
+  })();
+</script>

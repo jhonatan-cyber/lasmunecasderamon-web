@@ -1,5 +1,11 @@
 ---
 import "../styles/global.css";
+import "@fontsource/anton/latin-400.css";
+import "@fontsource/space-grotesk/latin-300.css";
+import "@fontsource/space-grotesk/latin-400.css";
+import "@fontsource/space-grotesk/latin-500.css";
+import "@fontsource/space-grotesk/latin-600.css";
+import "@fontsource/space-grotesk/latin-700.css";
 import { SITE, buildTitle, absoluteUrl, nightClubJsonLd, type PageMeta } from "../lib/seo";
 
 interface Props extends PageMeta {}
@@ -23,28 +29,10 @@ const jsonLd = type === "website" && !noindex ? nightClubJsonLd() : null;
 <!doctype html>
 <html lang="es-CL">
   <head>
-    <script is:inline>
-      (() => {
-        const storedTheme = localStorage.getItem("theme");
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        const theme = storedTheme === "light" || storedTheme === "dark" ? storedTheme : (prefersDark ? "dark" : "light");
-        const applyTheme = (nextTheme) => {
-          document.documentElement.dataset.theme = nextTheme;
-          document.documentElement.style.colorScheme = nextTheme;
-          const meta = document.getElementById("theme-color-meta");
-          if (meta) {
-            meta.setAttribute("content", nextTheme === "dark" ? "#050505" : "#f8f7f2");
-          }
-        };
-
-        window.setSiteTheme = applyTheme;
-        applyTheme(theme);
-      })();
-    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#050505" id="theme-color-meta" />
+    <meta name="theme-color" content="#040208" />
 
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
@@ -53,6 +41,7 @@ const jsonLd = type === "website" && !noindex ? nightClubJsonLd() : null;
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
     <link rel="manifest" href="/manifest.json" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
@@ -71,6 +60,7 @@ const jsonLd = type === "website" && !noindex ? nightClubJsonLd() : null;
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={SITE.twitter} />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
@@ -78,12 +68,13 @@ const jsonLd = type === "website" && !noindex ? nightClubJsonLd() : null;
 
     {jsonLd && (
       <script
-        is:inline type="application/ld+json"
+        is:inline
+        type="application/ld+json"
         set:html={JSON.stringify(jsonLd).replace(/</g, "\\u003c")}
       />
     )}
   </head>
-  <body class="font-sans">
+  <body class="grain font-sans">
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-black"
@@ -99,5 +90,27 @@ const jsonLd = type === "website" && !noindex ? nightClubJsonLd() : null;
 
     <slot name="footer" />
     <slot name="floating" />
+
+    <script>
+      (function () {
+        var els = document.querySelectorAll(".scroll-reveal");
+        if (!("IntersectionObserver" in window)) {
+          els.forEach(function (el) { el.classList.add("is-visible"); });
+          return;
+        }
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+        );
+        els.forEach(function (el) { io.observe(el); });
+      })();
+    </script>
   </body>
 </html>

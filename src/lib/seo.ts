@@ -13,7 +13,7 @@ export const SITE = {
   twitter: "@lasmunecasderamon",
   ogImage: "/og-image.png",
   ogImageWebp: "/og-image.webp",
-  ogImageAlt: "Las Muñecas de Ramón — Nightclub exclusivo en Linares, Chile",
+  ogImageAlt: "Las Muñecas de Ramón: Nightclub exclusivo en Linares, Chile",
   phone: "+56 9 87904824",
   phoneRaw: "56987904824",
   address: {
@@ -35,9 +35,10 @@ export const SITE = {
   },
   social: {
     facebook: "https://facebook.com",
-    instagram: "https://instagram.com",
+    instagram: "https://instagram.com/lasmunecasderamon",
     tiktok: "https://tiktok.com",
   },
+  instagramHandle: "@lasmunecasderamon",
 } as const;
 
 export interface PageMeta {
@@ -51,6 +52,8 @@ export interface PageMeta {
 
 export function buildTitle(pageTitle: string): string {
   if (!pageTitle || pageTitle === SITE.name) return `${SITE.name} | Nightclub exclusivo en Linares`;
+  // Si el titulo ya trae el nombre del club, no se repite (evita duplicados en SERP).
+  if (pageTitle.includes(SITE.name)) return pageTitle;
   return `${pageTitle} | ${SITE.name}`;
 }
 

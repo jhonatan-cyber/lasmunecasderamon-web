@@ -1,0 +1,196 @@
+---
+import { SITE } from "../../lib/seo";
+
+const zonas = [
+  { value: "Palco VIP", desc: "Vista privilegiada al escenario y pista" },
+  { value: "Box Privado", desc: "Privacidad total para tu grupo" },
+  { value: "Pista General", desc: "La energía de la pista, siempre activa" },
+  { value: "Quincho Privado", desc: "Asado privado con todas las comodidades" },
+];
+
+const ocasiones = [
+  "Salida nocturna",
+  "Cumpleaños",
+  "Despedida de soltero(a)",
+  "Evento corporativo",
+  "Aniversario",
+  "Otra ocasión",
+];
+---
+
+<section id="reservas" class="relative overflow-hidden py-20 sm:py-28">
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <div class="absolute left-1/2 top-1/2 h-[560px] w-[860px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold-500/[0.08] blur-[160px]"></div>
+    <div class="absolute inset-0 grid-floor opacity-60"></div>
+  </div>
+
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-14 text-center scroll-reveal sm:mb-16">
+      <p class="eyebrow-badge mb-5">Reservas VIP</p>
+      <h2 class="font-display text-4xl uppercase leading-[1.02] sm:text-6xl md:text-7xl">
+        <span class="text-white">Asegura tu</span>
+        <span class="gradient-text-gold"> mesa</span>
+      </h2>
+      <p class="mx-auto mt-6 max-w-2xl text-base font-light text-white/60 sm:text-lg">
+        Completa el formulario y confirma tu reserva por WhatsApp en segundos.
+        Sin filas, sin esperas: tu noche comienza antes de llegar.
+      </p>
+    </div>
+
+    <div class="grid items-start gap-8 lg:grid-cols-5 lg:gap-12">
+      <div class="space-y-4 scroll-reveal lg:col-span-2" style="--reveal-delay: 80ms;">
+        {
+          zonas.map((z, i) => (
+            <div class="brand-card group flex items-center gap-5 p-5" style={`--reveal-delay: ${i * 70}ms;`}>
+              <span class="font-display text-3xl text-white/15 group-hover:text-gold-500/60 transition-colors">0{i + 1}</span>
+              <div>
+                <h3 class="font-display text-lg uppercase tracking-wide text-white">{z.value}</h3>
+                <p class="text-sm font-light text-white/50">{z.desc}</p>
+              </div>
+            </div>
+          ))
+        }
+        <div class="glass-card p-5">
+          <p class="text-sm font-light leading-relaxed text-white/60">
+            <span class="font-semibold text-silver-200">Tip:</span> reserva con al menos 24 horas de anticipación
+            para fines de semana y fechas especiales.
+          </p>
+        </div>
+      </div>
+
+      <form
+        id="reservation-form"
+        class="glass-card p-6 scroll-reveal sm:p-8 lg:col-span-3"
+        style="--reveal-delay: 140ms;"
+        novalidate
+      >
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div>
+            <label for="res-nombre" class="mb-2 block text-[11px] font-bold uppercase tracking-[0.2em] text-white/60">
+              Nombre <span class="text-gold-400">*</span>
+            </label>
+            <input id="res-nombre" name="nombre" type="text" required placeholder="Tu nombre" class="input-brand" />
+          </div>
+          <div>
+            <label for="res-telefono" class="mb-2 block text-[11px] font-bold uppercase tracking-[0.2em] text-white/60">
+              Teléfono
+            </label>
+            <input id="res-telefono" name="telefono" type="tel" placeholder="+56 9 12345678" class="input-brand" />
+          </div>
+          <div>
+            <label for="res-fecha" class="mb-2 block text-[11px] font-bold uppercase tracking-[0.2em] text-white/60">
+              Fecha <span class="text-gold-400">*</span>
+            </label>
+            <input id="res-fecha" name="fecha" type="date" required class="input-brand" />
+          </div>
+          <div>
+            <label for="res-hora" class="mb-2 block text-[11px] font-bold uppercase tracking-[0.2em] text-white/60">
+              Hora de llegada
+            </label>
+            <input id="res-hora" name="hora" type="time" value="23:00" class="input-brand" />
+          </div>
+          <div>
+            <label for="res-personas" class="mb-2 block text-[11px] font-bold uppercase tracking-[0.2em] text-white/60">
+              Personas <span class="text-gold-400">*</span>
+            </label>
+            <select id="res-personas" name="personas" required class="input-brand">
+              {["2", "3", "4", "5", "6", "7", "8", "9", "10+"].map((n) => (
+                <option value={n} class="bg-ink-900">{n} personas</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label for="res-zona" class="mb-2 block text-[11px] font-bold uppercase tracking-[0.2em] text-white/60">
+              Zona <span class="text-gold-400">*</span>
+            </label>
+            <select id="res-zona" name="zona" required class="input-brand">
+              {zonas.map((z) => (
+                <option value={z.value} class="bg-ink-900">{z.value}</option>
+              ))}
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="res-ocasion" class="mb-2 block text-[11px] font-bold uppercase tracking-[0.2em] text-white/60">
+              Ocasión
+            </label>
+            <select id="res-ocasion" name="ocasion" class="input-brand">
+              {ocasiones.map((o) => (
+                <option value={o} class="bg-ink-900">{o}</option>
+              ))}
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="res-mensaje" class="mb-2 block text-[11px] font-bold uppercase tracking-[0.2em] text-white/60">
+              Detalles adicionales
+            </label>
+            <textarea
+              id="res-mensaje"
+              name="mensaje"
+              rows={3}
+              placeholder="Tragos preferidos, celebración del cumpleañero, decoración..."
+              class="input-brand resize-none"></textarea>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn-gold mt-7 w-full px-8 py-4 text-sm sm:text-base"
+        >
+          Confirmar Reserva por WhatsApp
+        </button>
+        <p class="mt-4 text-center text-[11px] text-white/35">
+          Al enviar, se abrirá WhatsApp con tu reserva pre-cargada. La reserva queda sujeta a confirmación del local.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ phoneRaw: SITE.phoneRaw }}>
+  (function () {
+    var form = document.getElementById("reservation-form");
+    if (!form) return;
+
+    var fechaInput = form.querySelector("#res-fecha");
+    if (fechaInput) {
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, "0");
+      var mm = String(today.getMonth() + 1).padStart(2, "0");
+      var yyyy = today.getFullYear();
+      fechaInput.min = yyyy + "-" + mm + "-" + dd;
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var fd = new FormData(form);
+      var nombre = String(fd.get("nombre") || "").trim();
+      var telefono = String(fd.get("telefono") || "").trim();
+      var fecha = String(fd.get("fecha") || "").trim();
+      var hora = String(fd.get("hora") || "").trim();
+      var personas = String(fd.get("personas") || "").trim();
+      var zona = String(fd.get("zona") || "").trim();
+      var ocasion = String(fd.get("ocasion") || "").trim();
+      var mensaje = String(fd.get("mensaje") || "").trim();
+
+      if (!nombre || !fecha) {
+        alert("Por favor completa tu nombre y la fecha de la reserva.");
+        return;
+      }
+
+      var lines = [
+        "Hola, quiero reservar una mesa en Las Muñecas de Ramón:",
+        "",
+        "• Nombre: " + nombre,
+        telefono ? "• Teléfono: " + telefono : null,
+        "• Fecha: " + fecha + (hora ? " · llegada " + hora : ""),
+        "• Personas: " + personas,
+        "• Zona: " + zona,
+        ocasion && ocasion !== "Otra ocasión" ? "• Ocasión: " + ocasion : null,
+        mensaje ? "• Detalles: " + mensaje : null,
+      ].filter(Boolean);
+
+      var url = "https://wa.me/" + phoneRaw + "?text=" + encodeURIComponent(lines.join("\n"));
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
+  })();
+</script>

@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "pnpm build:og && astro build",
+    "build": "pnpm build:assets && astro build",
+    "build:assets": "node scripts/build-og-image.mjs",
     "build:og": "node scripts/build-og-image.mjs",
     "preview": "astro preview",
     "astro": "astro",
@@ -18,6 +19,8 @@
     "@astrojs/mdx": "^6.0.1",
     "@astrojs/sitemap": "3.7.3",
     "@astrojs/tailwind": "^6.0.2",
+    "@fontsource/anton": "^5.3.0",
+    "@fontsource/space-grotesk": "^5.3.0",
     "astro": "^6.4.2",
     "tailwindcss": "^3.4.18"
   },
